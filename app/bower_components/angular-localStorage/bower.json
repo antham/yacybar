@@ -1,0 +1,29 @@
+{
+  "name": "angular-localStorage",
+  "version": "0.0.0",
+  "main": "src/localFactory.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "test",
+    "karma.conf.js"
+  ],
+  "dependencies": {
+    "angular": "~1.0.7",
+    "angular-cookies": "~1.0.7"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.0.7"
+  },
+  "gitHead": "74b4248195de18954ca50dc7a87bbc19f1862e50",
+  "readme": "Angular-localStorage [![Build Status](https://travis-ci.org/agrublev/Angular-localStorage.png?branch=master)](https://travis-ci.org/agrublev/Angular-localStorage)\n====================\n\nThe simpliest localStorage module you will ever use. Allowing you to set, get, and *bind* variables.\n\n## Features:\n\n* Two way bind your $scope variable value to a localStorage key/pair which will be updated whenever the model is updated.\n* You can directly store Objects, Arrays, Floats, Booleans, and Strings. No need to convert your javascript values from strings.\n* Fallback to Angular ``$cookies`` if localStorage is not supported (REMEMBER to add ``angular-cookies.min.js`` script to your project or remove ``'ngCookies'`` from a dependency);\n\n## How to use\n\n1. Just add this module to your app as a dependency\n``var yourApp = angular.module('yourApp', [..., 'localStorage']``\n2. Now inside your controllers simply pass the $store factory like this\n``yourApp.controller('yourController', function( $scope, $store){``\n3. Using the ``$store`` factory\n  ```\n  // binding it to a $scope.variable\n  $store.bind($scope,'varName','someDefaultValue');\n  // the params are ($scope, varName, defaultValue(optional))\n  // $scope - pass a reference to whatever scope the variable resides in\n  // varName - the variable name so for $scope.firstName enter 'firstName'\n  // defaultValue - if you want to set a default value if there is no localStorage value so that the first time you initiate it the value is assigned\n\n  // will constantly be updating $scope.viewType\n  // to change the variable both locally in your controller and in localStorage just do\n  $scope.viewType = 'ANYTHING';\n  // that's it, it will be updated in localStorage\n\n  // just storing something in localStorage with cookie backup for unsupported browsers\n  $store.set('key','value');\n  // getting that value\n  $store.get('key');\n  ```\n\n## Bower\nThis module is available as bower package, install it with this command:\n\n```bash\nbower install angular-localStorage\n```\n\nor\n\n```bash\nbower install git://github.com/agrublev/Angular-localStorage.git\n```\n\n## Example\n\nFor live example please checkout - http://plnkr.co/edit/Y1mrNVRkInCItqvZXtto?p=preview\n\n## Suggestions?\n\nPlease add an issue with ideas, improvements, or bugs! Thanks!\n\n---\n\n(c) 2013 MIT License\n\n",
+  "readmeFilename": "README.md",
+  "_id": "angular-localStorage@0.1.1",
+  "description": "Angular-localStorage [![Build Status](https://travis-ci.org/agrublev/Angular-localStorage.png?branch=master)](https://travis-ci.org/agrublev/Angular-localStorage) ====================",
+  "commit": "74b4248195de18954ca50dc7a87bbc19f1862e50",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/agrublev/Angular-localStorage.git"
+  }
+}
