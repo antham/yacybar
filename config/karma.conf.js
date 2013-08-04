@@ -11,6 +11,7 @@ files = [
     "app/bower_components/angular-cookies/angular-cookies.min.js",
     "app/bower_components/angular-localStorage/src/localFactory.js",
     'test/lib/angular/angular-mocks.js',
+    'test/lib/chrome/chrome.js',
     'app/js/**/*.js',
     'test/unit/**/*.js'
 ];

@@ -3,8 +3,15 @@
 /* Filters */
 
 angular.module('yacy.filters', []).
-  filter('interpolate', ['version', function(version) {
-    return function(text) {
-      return String(text).replace(/\%VERSION\%/mg, version);
-    }
-  }]);
+    /**
+     * Translate a field using chrome extension api
+     *
+     * @param {String} text  A field to translate
+     *
+     * @return {String}      Translated field
+     */
+    filter('translate', function () {
+        return function (text) {
+            return text && chrome.i18n.getMessage(text) !== '' ? chrome.i18n.getMessage(text) : text;
+        };
+    });
