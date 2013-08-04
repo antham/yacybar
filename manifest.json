@@ -1,0 +1,13 @@
+{
+    "manifest_version": 2,
+    "name": "__MSG_yacy_name__",
+    "version": "1.0",
+    "description": "__MSG_yacy_description__",
+    "default_locale": "en",
+    "icons": {
+        "16": "/app/img/yacy_logo_small.png",
+        "48": "/app/img/yacy_logo_medium.png",
+        "128": "/app/img/yacy_logo_big.png"
+    },
+    "content_security_policy": "script-src 'unsafe-eval'; object-src 'self'"
+}
