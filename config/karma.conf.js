@@ -9,7 +9,7 @@ files = [
     "app/bower_components/angular-bootstrap/ui-bootstrap.min.js",
     "app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
     "app/bower_components/angular-cookies/angular-cookies.min.js",
-    "app/bower_components/angular-localStorage/src/localFactory.js",
+    "app/bower_components/angular-localStorage/src/localStorage.js",
     'test/lib/angular/angular-mocks.js',
     'test/lib/chrome/chrome.js',
     'app/js/**/*.js',
