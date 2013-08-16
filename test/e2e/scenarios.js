@@ -2,44 +2,52 @@
 
 /* http://docs.angularjs.org/guide/dev_guide.e2e-testing */
 
-describe('my app', function() {
+describe('yacy', function() {
+    describe('options', function() {
+        beforeEach(function() {
+            browser().navigateTo('/app/options.html');
+        });
 
-  beforeEach(function() {
-    browser().navigateTo('../../app/index.html');
-  });
+        it('should update values', function() {
+            input('options.peerAddress').enter('127.0.0.1');
+            input('options.peerPort').enter(10000);
+            input('options.enableDynamicUrls').check();
 
+            expect(element('input[name~=peer_address]').val()).toEqual('127.0.0.1');
+            expect(element('input[name~=peer_port]').val()).toEqual("10000");
+            expect(element('input[name~=dynamic_urls]').attr('checked')).toBeTruthy();
+        });
 
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/view1");
-  });
+        it('should validate values', function() {
+            input('options.peerAddress').enter('');
+            expect(element('input[name~=peer_address].ng-invalid').count()).toBe(1);
 
+            input('options.peerPort').enter('1000000');
+            expect(element('input[name~=peer_address].ng-invalid').count()).toBe(1);
 
-  describe('view1', function() {
+            input('options.peerPort').enter('0');
+            expect(element('input[name~=peer_address].ng-invalid').count()).toBe(1);
 
-    beforeEach(function() {
-      browser().navigateTo('#/view1');
+            input('options.peerPort').enter('word');
+            expect(element('input[name~=peer_address].ng-invalid').count()).toBe(1);
+
+            input('options.crawlingFilter').enter('');
+            expect(element('input[name~=crawling_filter].ng-invalid').count()).toBe(1);
+
+            input('options.urlMask').enter('');
+            expect(element('input[name~=url_mask].ng-invalid').count()).toBe(1);
+        });
+
+        it('should reset all values', function() {
+            input('options.peerAddress').enter('example.com');
+            input('options.peerPort').enter(15);
+            input('options.enableDynamicUrls').check();
+
+            element('button[name~=reset_all_settings]').click();
+
+            expect(element('input[name~=peer_address]').val()).toEqual('localhost');
+            expect(element('input[name~=peer_port]').val()).toEqual('8080');
+            expect(element('input[name~=dynamic_urls]').attr('checked')).toBeFalsy();
+        });
     });
-
-
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element('[ng-view] p:first').text()).
-        toMatch(/partial for view 1/);
-    });
-
-  });
-
-
-  describe('view2', function() {
-
-    beforeEach(function() {
-      browser().navigateTo('#/view2');
-    });
-
-
-    it('should render view2 when user navigates to /view2', function() {
-      expect(element('[ng-view] p:first').text()).
-        toMatch(/partial for view 2/);
-    });
-
-  });
 });

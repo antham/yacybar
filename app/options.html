@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html ng-app="yacy">
+  <head>
+    <title>{{"yacy_name"|translate}} options</title>
+    <link rel="stylesheet" href="/app/bower_components/angular-ui/build/angular-ui.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/app/bower_components/bower-bootstrap-css/bootstrap.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/app/css/main.css" type="text/css" media="screen" />
+
+    <script type="text/javascript" src="/app/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/angular-ui/build/angular-ui-ieshiv.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/angular-ui/build/angular-ui.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <script type="text/javascript" src="/app/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/angular-localStorage/src/localStorage.js"></script>
+    <script src="/app/js/app.js"></script>
+    <script src="/app/js/services.js"></script>
+    <script src="/app/js/controllers.js"></script>
+    <script src="/app/js/filters.js"></script>
+    <script src="/app/js/directives.js"></script>
+  </head>
+  <body>
+    <div ng-controller="OptionsCtrl" class="container" ng-init="init();">
+      <div class="title row">
+        <img src="/app/img/yacy_logo_big.png" class="span4"><h1 class="span4">{{"yacybar_settings"|translate}}</h1>
+      </div>
+      <form name="form" novalidate class="form-horizontal">
+        <tabset>
+          <tab id="tabs_main" heading="{{'main'|translate}}">
+            <div class="main_summary">{{"main_summary"|translate}}</div>
+            <hr />
+            <div class="control-group">
+              <label for="reset_all_settings" class="control-label">{{"reset_all_settings"|translate}}</label>
+              <div class="controls">
+                <button class="btn btn-primary" name="reset_all_settings" ng-click="reset();">{{"ok"|translate}}</button>
+              </div>
+            </div>
+          </tab>
+          <tab id="tabs_peer" heading="{{'peer'|translate}}">
+            <div class="summary">{{"peer_summary"|translate}}</div>
+            <hr />
+            <div ng-class="{'error': !(options.peerAddress)}" class="control-group">
+              <label for="peer_address" class="control-label">{{"peer_address"|translate}}</label>
+              <div class="controls">
+                <input name="peer_address" type="text" required ng-model="options.peerAddress" />
+                <span class="help-inline" ng-show="!(options.peerAddress)">{{"peer_address_error"|translate}}</span>
+              </div>
+            </div>
+            <div ng-class="{'error': !(options.peerPort)}" class="control-group">
+              <label for="peer_port" class="control-label">{{"peer_port"|translate}}</label>
+              <div class="controls">
+                <input name="peer_port" type="number" min="1" max="65535" required ng-model="options.peerPort" />
+                <span class="help-inline" ng-show="!(options.peerPort)">{{"peer_port_error"|translate}}</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label for="ssl_encryption" class="checkbox">
+                  <input name="ssl_encryption" type="checkbox" ng-model="options.enablePeerSsl" /> {{"use_ssl_encryption"|translate}}
+                </label>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="peer_username" class="control-label">{{"peer_username"|translate}}</label>
+              <div class="controls">
+                <input name="peer_username" type="text" ng-model="options.peerUsername" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="peer_password" class="control-label">{{"peer_password"|translate}}</label>
+              <div class="controls">
+                <input name="peer_password" type="password" ng-model="options.peerPassword"/>
+              </div>
+            </div>
+          </tab>
+          <tab id="tabs_quick_crawl" heading="{{'quick_crawl'|translate}}">
+            <span class="summary">{{"quick_crawl_summary"|translate}}</span>
+            <hr />
+            <div class="control-group">
+              <div class="controls">
+                <label for="crawler_settings" class="checkbox">
+                  <input name="crawler_settings" type="checkbox" ng-model="options.enableCrawlerSettings" /> {{"prompt_crawler_settings"|translate}}
+                </label>
+              </div>
+            </div>
+            <div>
+              <h4>{{"restrictions"|translate}}</h4>
+              <div ng-class="{'error': !(options.crawlingFilter)}" class="control-group">
+                <label for="crawling_filter" class="control-label">{{"crawling_filter"|translate}}</label>
+                <div class="controls">
+                  <input name="crawling_filter" type="text" required ng-model="options.crawlingFilter" />
+                  <span class="help-inline" ng-show="!(options.crawlingFilter)">{{"crawling_filter_error"|translate}}</span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="crawling_depth" class="control-label">{{"crawling_depth"|translate}}</label>
+                <div class="controls">
+                  <select name="crawling_depth" ng-model="options.crawlingDepth" ng-options="value for value in [0,1,2,3]">
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h4>{{"options"|translate}}</h4>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="dynamic_urls" class="checkbox">
+                    <input name="dynamic_urls" type="checkbox" ng-model="options.enableDynamicUrls" /> {{"accept_dynamic_urls"|translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="proxy_cache_storing" class="checkbox">
+                    <input name="proxy_cache_storing" type="checkbox" ng-model="options.enableProxyCacheStoring" /> {{"store_to_proxy_cache"|translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="remote_indexing" class="checkbox">
+                    <input name="remote_indexing" type="checkbox" ng-model="options.enableRemoteIndexing" /> {{"remote_indexing"|translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="exclude_static_stop_words" class="checkbox">
+                    <input name="exclude_static_stop_words" type="checkbox" ng-model="options.enableStaticStopWordsExclusion"/> {{"exclude_static_stop_words"|translate}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </tab>
+          <tab id="tabs_search" heading="{{'search'|translate}}">
+            <span class="summary">{{"search_summary"|translate}}</span>
+            <hr />
+            <div>
+              <div class="control-group">
+                <label for="search_type" class="control-label">{{"kind_of_search"|translate}}</label>
+                <div class="controls">
+                  <select name="search_type" ng-model="options.searchType">
+                    <option ng-repeat="value in ['standard','compare_search_engines','rich_client']" ng-selected="options.searchType == value" i18n="{{value|translate}}">{{value|translate}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="content_type" class="control-label">{{"content_type"|translate}}</label>
+                <div class="controls">
+                  <select name="content_type" ng-model="options.contentType">
+                    <option ng-repeat="value in ['text','image','audio','video','application']" ng-selected="options.contentType == value" i18n="{{value|translate}}">{{value|translate}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="max_result" class="control-label">{{"max_number_of_result"|translate}}</label>
+                <div class="controls">
+                  <select name="max_result" ng-model="options.maxResult" ng-options="value for value in [10,50,100,1000]">
+                  </select>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="resource" class="control-label">{{"resource"|translate}}</label>
+                <div class="controls">
+                  <select name="resource" ng-model="options.resource">
+                    <option ng-repeat="value in ['global','local']" ng-selected="options.resource == value" i18n="{{value|translate}}">{{value|translate}}</option>
+                  </select>
+                </div>
+              </div>
+              <div ng-class="{'error': !(options.urlMask)}" class="control-group">
+                <label for="url_mask" class="control-label">{{"url_mask_error"|translate}}</label>
+                <div class="controls">
+                  <input name="url_mask" type="text" required ng-model="options.urlMask" />
+                  <span class="help-inline" ng-show="!(options.urlMask)"></span>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="snippets" class="checkbox">
+                    <input name="snippets" type="checkbox" ng-model="options.enableSnippets" /> {{"load_and_verify_snippet"|translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="startpage" class="checkbox">
+                    <input name="startpage" type="checkbox" ng-model="options.enableSearchPageAsStartPage" /> {{"use_search_page_as_start_page"|translate}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </tab>
+          <tab id="tabs_notification" heading="{{'notification'|translate}}">
+            <div>
+              <span class="summary">{{"notification_summary"|translate}}</span>
+              <hr />
+              <div class="control-group">
+                <div class="controls">
+                  <label for="message_notification" class="checkbox">
+                    <input name="message_notification" type="checkbox" ng-model="options.enableMessageNotification" /> {{"enable_message_notification"|translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="crawler_notification" class="checkbox">
+                    <input name="crawler_notification" type="checkbox" ng-model="options.enableCrawlerNotification" /> {{"enable_crawler_notification"|translate}}
+                  </label>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="news_notification" class="checkbox">
+                    <input name="news_notification" type="checkbox" disabled="disabled" ng-model="options.enableNewsNotification" /> {{"enable_news_notification"|translate}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </tab>
+          <tab id="tabs_about" heading="{{'about'|translate}}">
+            <div>
+              <span class="summary">{{"about_summary"|translate}}</span>
+              <hr />
+              <div class="control-group">
+                <span>{{"homepage"|translate}}</span>
+                <span><a href="http://www.yacy.net">http://www.yacy.net</a></span>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </form>
+    </div>
+  </body>
+</html>

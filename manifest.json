@@ -9,5 +9,6 @@
         "48": "/app/img/yacy_logo_medium.png",
         "128": "/app/img/yacy_logo_big.png"
     },
+    "options_page": "/app/options.html",
     "content_security_policy": "script-src 'unsafe-eval'; object-src 'self'"
 }

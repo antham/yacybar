@@ -1,0 +1,10 @@
+div.title img
+{
+    width: 128px;
+    height: 128px;
+}
+
+div.title h1
+{
+    padding-top: 40px;
+}
