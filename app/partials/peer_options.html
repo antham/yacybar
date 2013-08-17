@@ -1,0 +1,35 @@
+<div class="summary">{{"peer_summary"|translate}}</div>
+<hr />
+<div ng-class="{'error': !(options.peerAddress)}" class="control-group">
+  <label for="peer_address" class="control-label">{{"peer_address"|translate}}</label>
+  <div class="controls">
+    <input name="peer_address" type="text" required ng-model="options.peerAddress" />
+    <span class="help-inline" ng-show="!(options.peerAddress)">{{"peer_address_error"|translate}}</span>
+  </div>
+</div>
+<div ng-class="{'error': !(options.peerPort)}" class="control-group">
+  <label for="peer_port" class="control-label">{{"peer_port"|translate}}</label>
+  <div class="controls">
+    <input name="peer_port" type="number" min="1" max="65535" required ng-model="options.peerPort" />
+    <span class="help-inline" ng-show="!(options.peerPort)">{{"peer_port_error"|translate}}</span>
+  </div>
+</div>
+<div class="control-group">
+  <div class="controls">
+    <label for="ssl_encryption" class="checkbox">
+      <input name="ssl_encryption" type="checkbox" ng-model="options.enablePeerSsl" /> {{"use_ssl_encryption"|translate}}
+    </label>
+  </div>
+</div>
+<div class="control-group">
+  <label for="peer_username" class="control-label">{{"peer_username"|translate}}</label>
+  <div class="controls">
+    <input name="peer_username" type="text" ng-model="options.peerUsername" />
+  </div>
+</div>
+<div class="control-group">
+  <label for="peer_password" class="control-label">{{"peer_password"|translate}}</label>
+  <div class="controls">
+    <input name="peer_password" type="password" ng-model="options.peerPassword"/>
+  </div>
+</div>
