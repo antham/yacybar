@@ -2,9 +2,13 @@
  * Chrome mock
  */
 
-chrome = {i18n: {}};
-chrome.i18n.datas = {};
-chrome.i18n.getMessage = function(text)
+var chromeMock = {tabs: {},i18n: {},mock: {i18n: {},tabs: {}}};
+
+chromeMock.i18n.getMessage = function(text)
 {
-    return chrome.i18n.datas[text] ? chrome.i18n.datas[text] : text;
+    return chromeMock.mock.i18n[text] ? chromeMock.mock.i18n[text] : text;
+};
+
+chromeMock.tabs.query = function (queryInfo,callback) {
+    callback(chromeMock.mock.tabs);
 };
