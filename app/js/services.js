@@ -8,5 +8,12 @@
 angular.module('yacy.services', []).
     factory('$chrome', function() {
         return chrome;
+    }).
+    factory('$uri',function () {
+        return {
+            new: function (url) {
+                return new URI(url);
+            }
+        };
     });
 
