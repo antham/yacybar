@@ -44,4 +44,44 @@ angular.module('yacy.controllers', []).
 
             this.init();
         };
+    }]).
+    controller('BrowserActionCtrl', ['$scope', '$chrome', '$uri', function ($scope, $chrome, $uri) {
+        $scope.currentUrl = null;
+        $scope.blacklistUrl = null;
+        $scope.crawlUrl = null;
+
+        $scope.init = function() {
+            $chrome.tabs.query(
+                {'active':true,'status':'complete','highlighted':true},
+                function (tabs) {
+                    $scope.currentUrl = tabs[0].url;
+                    $scope.blacklistUrl = $scope.currentUrl;
+                    $scope.crawlUrl = $scope.currentUrl;
+                }
+            );
+        };
+
+        $scope.resetCrawl = function () {
+            $scope.crawlUrl = $scope.currentUrl;
+        };
+
+        $scope.submitCrawl = function () {
+            var url = $uri()
+        };
+
+        $scope.resetBlacklist = function() {
+            $scope.blacklistUrl = $scope.currentUrl;
+        };
+
+        $scope.filterDomain = function () {
+            var uri = $uri.new($scope.currentUrl);
+
+            $scope.blacklistUrl = uri.hostname()+"/.*";
+        };
+
+        $scope.filterSubDomain = function () {
+            var uri = $uri.new($scope.currentUrl);
+
+            $scope.blacklistUrl = ".*"+uri.domain()+"/.*";
+        };
     }]);
