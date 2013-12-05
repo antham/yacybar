@@ -42,11 +42,11 @@ describe('controllers', function () {
 
         beforeEach(module('yacy.controllers','yacy.services'));
 
-        beforeEach(inject(function($rootScope, $controller, $uri) {
+        beforeEach(inject(function($rootScope, $controller, uri) {
             scope = $rootScope.$new();
             chrome = chromeMock;
 
-            $controller('BrowserActionCtrl', {$scope: scope, $uri: $uri, $chrome: chrome});
+            $controller('BrowserActionCtrl', {$scope: scope, uri: uri, chrome: chrome});
 
             chrome.mock.tabs = [{active: true,
                                  "favIconUrl": "http://www.example.com/favicon.ico",

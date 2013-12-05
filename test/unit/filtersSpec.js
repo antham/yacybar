@@ -3,7 +3,7 @@
 describe('filter', function() {
     beforeEach(function() {
         module('yacy.filters', function($provide) {
-            $provide.value('$chrome', chromeMock);
+            $provide.value('chrome', chromeMock);
         });
     });
 

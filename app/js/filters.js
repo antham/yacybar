@@ -10,8 +10,8 @@ angular.module('yacy.filters', []).
      *
      * @return {String}      Translated field
      */
-    filter('translate', ['$chrome', function ($chrome) {
-        return function (text) {
-            return text && $chrome.i18n.getMessage(text) !== '' ? $chrome.i18n.getMessage(text) : text;
+    filter('translate', ['chrome', function(chrome) {
+        return function(text) {
+            return text && chrome.i18n.getMessage(text) !== '' ? chrome.i18n.getMessage(text) : text;
         };
     }]);
