@@ -8,7 +8,6 @@ files = [
     "app/bower_components/angular-route/angular-route.min.js",
     "app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
     "app/bower_components/angular-cookies/angular-cookies.min.js",
-    "app/bower_components/angular-localStorage/src/localStorage.js",
     "app/bower_components/uri.js/src/URI.min.js",
     'test/lib/angular/angular-mocks.js',
     'test/lib/chrome/chrome.js',

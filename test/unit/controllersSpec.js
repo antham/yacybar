@@ -5,38 +5,37 @@
 describe('controllers', function () {
 
     describe('OptionsCtrl', function() {
-        beforeEach(module('yacy.controllers','localStorage'));
+        beforeEach(module('yacy.controllers','yacy.services'));
 
-        var scope, store, ctrl;
+        var scope, storage, ctrl;
 
-        beforeEach(inject(function($rootScope, $controller, $store) {
+        beforeEach(inject(function($rootScope, $controller, $parse, _storage_) {
             scope = $rootScope.$new();
-            store = $store;
+            storage = _storage_;
 
-            var ctrl = $controller('OptionsCtrl', {$scope: scope, $store: $store});
+            var ctrl = $controller('OptionsCtrl', {$scope: scope, $parse: $parse, storage: storage});
         }));
 
         it('should initialize all options in localStorage with their defaults values', function() {
             scope.init();
 
-            expect(store.get('options.peerAddress')).toEqual('localhost');
-            expect(store.get('options.peerPort')).toEqual(8080);
-            expect(store.get('options.enableDynamicUrls')).toEqual(false);
+            expect(storage.get('options.peerAddress')).toEqual('localhost');
+            expect(storage.get('options.peerPort')).toEqual(8080);
+            expect(storage.get('options.enableDynamicUrls')).toEqual(false);
         });
 
         it('should reset all options in localStorage with their defaults values', function() {
-            store.set('options.peerAddress','127.0.0.1');
-            store.set('options.peerPort',10000);
-            store.set('options.enableDynamicUrls',true);
+            storage.set('options.peerAddress','127.0.0.1');
+            storage.set('options.peerPort',10000);
+            storage.set('options.enableDynamicUrls',true);
 
             scope.reset();
 
-            expect(store.get('options.peerAddress')).toEqual('localhost');
-            expect(store.get('options.peerPort')).toEqual(8080);
-            expect(store.get('options.enableDynamicUrls')).toEqual(false);
+            expect(storage.get('options.peerAddress')).toEqual('localhost');
+            expect(storage.get('options.peerPort')).toEqual(8080);
+            expect(storage.get('options.enableDynamicUrls')).toEqual(false);
         });
     });
-
     describe('BrowserActionCtrl', function() {
         var scope,chrome;
 

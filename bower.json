@@ -2,7 +2,6 @@
   "name": "YacyBar",
   "dependencies": {
     "angular-cookies": "*",
-    "Angular-localStorage": "*",
     "angular-route": "*",
     "angular-resource": "*",
     "angular-bootstrap": "*",

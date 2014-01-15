@@ -16,7 +16,8 @@
     },
     "options_page": "/app/options.html",
     "permissions": [
-        "tabs"
+        "tabs",
+        "storage"
     ],
     "content_security_policy": "script-src 'unsafe-eval'; object-src 'self'"
 }

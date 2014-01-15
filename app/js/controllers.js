@@ -3,43 +3,56 @@
 /* Controllers */
 
 angular.module('yacy.controllers', []).
-    controller('OptionsCtrl', ['$scope', '$store', function ($scope, $store) {
+    controller('OptionsCtrl', ['$scope', '$parse', 'storage', function ($scope, $parse, storage) {
         $scope.defaultOptions = {
-            "peerAddress": "localhost",
-            "peerPort": 8080,
-            "enablePeerSsl": false,
-            "peerUsername": null,
-            "peerPassword": null,
-            "enableCrawlerSettings": true,
-            "crawlingFilter": ".*",
-            "crawlingDepth": 0,
-            "enableDynamicUrls": false,
-            "enableProxyCacheStoring": false,
-            "enableRemoteIndexing": false,
-            "enableStaticStopWordsExclusion": false,
-            "searchType": "standard",
-            "contentType": "text",
-            "maxResult": 10,
-            "resource": "global",
-            "urlMask": ".*",
-            "enableSnippets": false,
-            "enableSearchPageAsStartPage": false,
-            "enableMessageNotification": false,
-            "enableCrawlerNotification": false,
-            "enableNewsNotification": false
+            "options.peerAddress": "localhost",
+            "options.peerPort": 8080,
+            "options.enablePeerSsl": false,
+            "options.peerUsername": null,
+            "options.peerPassword": null,
+            "options.enableCrawlerSettings": true,
+            "options.crawlingFilter": ".*",
+            "options.crawlingDepth": 0,
+            "options.enableDynamicUrls": false,
+            "options.enableProxyCacheStoring": false,
+            "options.enableRemoteIndexing": false,
+            "options.enableStaticStopWordsExclusion": false,
+            "options.searchType": "standard",
+            "options.contentType": "text",
+            "options.maxResult": 10,
+            "options.resource": "global",
+            "options.urlMask": ".*",
+            "options.enableSnippets": false,
+            "options.enableSearchPageAsStartPage": false,
+            "options.enableMessageNotification": false,
+            "options.enableCrawlerNotification": false,
+            "options.enableNewsNotification": false
         },
 
         $scope.init = function() {
             for(var key in this.defaultOptions)
             {
-                $store.bind($scope,"options."+key,this.defaultOptions[key]);
+                if(!storage.has(key))
+                {
+                    storage.set(key,this.defaultOptions[key]);
+                }
+
+                var value = storage.get(key);
+
+                $parse(key).assign($scope, value);
+
+                (function(key){
+                    $scope.$watch(key, function (value) {
+                        storage.set(key,value);
+                    }, true);
+                }(key));
             }
         },
 
         $scope.reset = function() {
             for(var key in this.defaultOptions)
             {
-                $store.remove("options."+key);
+                localStorage.removeItem(key);
             }
 
             this.init();
