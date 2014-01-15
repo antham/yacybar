@@ -2,20 +2,16 @@
 <html ng-app="yacy">
   <head>
     <title>{{"yacy_name"|translate}} toolbar</title>
-    <link rel="stylesheet" href="/app/bower_components/angular-ui/build/angular-ui.min.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/app/bower_components/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/app/bower_components/bootstrap-css/css/bootstrap.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/app/css/main.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/app/bower_components/uri.js/src/URI.min.js"></script>
     <script type="text/javascript" src="/app/bower_components/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/app/bower_components/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/app/bower_components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="/app/bower_components/angular-ui/build/angular-ui-ieshiv.min.js"></script>
-    <script type="text/javascript" src="/app/bower_components/angular-ui/build/angular-ui.min.js"></script>
-    <script type="text/javascript" src="/app/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="/app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-
     <script type="text/javascript" src="/app/bower_components/angular-cookies/angular-cookies.min.js"></script>
-    <script type="text/javascript" src="/app/bower_components/angular-localStorage/src/localStorage.js"></script>
+    <script type="text/javascript" src="/app/bower_components/Angular-localStorage/src/angularLocalStorage.js"></script>
     <script src="/app/js/app.js"></script>
     <script src="/app/js/services.js"></script>
     <script src="/app/js/controllers.js"></script>
@@ -23,11 +19,11 @@
     <script src="/app/js/directives.js"></script>
   </head>
   <body>
-    <div ng-controller="BrowserActionCtrl" class="row-fluid" ng-init="init();">
-      <form name="form" novalidate class="form-horizontal span5">
+    <div ng-controller="BrowserActionCtrl" class="row" ng-init="init();">
+      <form name="form" novalidate class="form-horizontal col-md-5">
         <fieldset>
           <legend>{{"blacklist_page"|translate}}</legend>
-          <div class="input-prepend">
+          <div class="input-group">
             <div class="btn-group">
               <button class="btn" tabindex="-1">{{"submit"|translate}}</button>
               <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1">
@@ -46,7 +42,7 @@
         </fieldset>
         <fieldset>
           <legend>{{"crawl_page"|translate}}</legend>
-          <div class="input-prepend input-append">
+          <div class="input-group">
             <div class="btn-group">
               <button class="btn" tabindex="-1">{{"submit"|translate}}</button>
               <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1">
