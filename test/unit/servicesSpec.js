@@ -132,5 +132,17 @@ describe('service', function() {
         expect(result).toEqual(null);
       });
     });
+
+    describe('get search url', function() {
+      it('should return null if no query is provided', function() {
+        var result = api.getSearchUrl();
+        expect(result).toEqual(null);
+      });
+
+      it('should return a search url', function() {
+        var result = api.getSearchUrl('hello world');
+        expect(result).toEqual('http://localhost:8090/yacysearch.html?search=hello+world&urlMaskFilter=.%2A&contentdom=text&count=10&resource=global&verify=false');
+      });
+    });
   });
 });

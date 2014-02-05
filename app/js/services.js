@@ -45,12 +45,13 @@ angular.module('yacy.services', []).
         }
       };
     }).
-    factory('api', ['$resource', 'storage', 'xml2json',
-                  function($resource, storage, xml2json) {
-                    var Api = function($resource, storage, xml2json) {
+    factory('api', ['$resource', 'storage', 'xml2json', 'uri',
+                  function($resource, storage, xml2json, uri) {
+                    var Api = function($resource, storage, xml2json, uri) {
                       this.$resource = $resource;
                       this.storage = storage;
                       this.xml2json = xml2json.new();
+                      this.uri = uri;
 
                       this.params = {
                         'protocol': storage.get('options.enablePeerSsl') ? 'https' : 'http',
@@ -60,6 +61,30 @@ angular.module('yacy.services', []).
                     };
 
                     Api.prototype = {
+
+                      getSearchUrl: function(query)
+                      {
+                        if (!query)
+                        {
+                          return null;
+                        }
+
+                        var uri = this.uri.new(this.params);
+                        uri.path('yacysearch.html');
+
+                        var params = {};
+                        params['search'] = query;
+                        params['urlMaskFilter'] = storage.get('options.urlMask');
+                        params['contentdom'] = storage.get('options.contentType');
+                        params['count'] = storage.get('options.maxResult');
+                        params['resource'] = storage.get('options.resource');
+                        params['verify'] = storage.get('options.enableSnippets');
+
+                        uri.search(params);
+
+                        return uri.toString();
+                      },
+
                       crawl: function(url, title)
                       {
                         if (!url || !title)
@@ -129,5 +154,5 @@ angular.module('yacy.services', []).
                       }
                     };
 
-                    return new Api($resource, storage, xml2json);
+                    return new Api($resource, storage, xml2json, uri);
                   }]);

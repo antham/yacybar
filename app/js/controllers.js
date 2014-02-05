@@ -93,4 +93,11 @@ angular.module('yacy.controllers', []).
       $scope.filterSubDomain = function() {
             $scope.blacklistUrl = '.*' + uri.new($scope.currentUrl).domain() + '/.*';
       };
+    }]).
+    controller('BackgroundActionCtrl', ['$scope', 'chrome', 'uri', 'api', function($scope, chrome, uri, api) {
+      $scope.init = function() {
+            chrome.omnibox.onInputEntered.addListener(function(query) {
+          chrome.tabs.create({url: api.getSearchUrl(query)});
+            });
+      };
     }]);
