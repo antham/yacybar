@@ -71,16 +71,17 @@ describe('service', function() {
         $httpBackend.flush();
 
         expect(result.$resolved).toEqual(true);
-        expect(result['blacklists']).toEqual(['url.default.black', 'hello_world.black']);
+        expect(result['0']).toEqual('url.default.black');
+        expect(result['1']).toEqual('hello_world.black')
       });
 
-      it('should return an empty list', function() {
+      it('should return no result', function() {
         $httpBackend.whenGET('http://localhost:8080/xml/blacklists_p.xml?attrOnly=1').respond('');
 
         var result = api.getBlacklistNames();
         $httpBackend.flush();
 
-        expect(result['blacklists']).toEqual([]);
+        expect(result['0']).toEqual(null);
       });
     });
 
