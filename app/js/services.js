@@ -55,7 +55,7 @@ angular.module('yacy.services', []).
                       this.params = {
                         'protocol': storage.get('options.enablePeerSsl') ? 'https' : 'http',
                         'hostname': storage.get('options.peerAddress'),
-                        'port': storage.get('options.peerPort') ? ':' + storage.get('options.peerPort') : ''
+                        'port': storage.get('options.peerPort') ? storage.get('options.peerPort') : ''
                       };
                     };
 
@@ -76,7 +76,7 @@ angular.module('yacy.services', []).
                         params['storeHTCache'] = storage.get('options.enableProxyCacheStoring');
                         params['crawlingQ'] = storage.get('options.enableDynamicUrls');
 
-                        return this.$resource(':protocol://:hostname:port/QuickCrawlLink_p.xml?url=:url&title=:title&crawlingDepth=:crawlingDepth&localIndexing=:localIndexing&xdstopw=:xdstopw&storeHTCache=:storeHTCache&crawlingQ=:crawlingQ', params).get();
+                        return this.$resource(':protocol://:hostname' + ':' + ':port/QuickCrawlLink_p.xml?url=:url&title=:title&crawlingDepth=:crawlingDepth&localIndexing=:localIndexing&xdstopw=:xdstopw&storeHTCache=:storeHTCache&crawlingQ=:crawlingQ', params).get();
                       },
 
                       blacklist: function(url, name)
@@ -90,7 +90,7 @@ angular.module('yacy.services', []).
                         params['currentBlacklist'] = name;
                         params['newEntry'] = url;
 
-                        return this.$resource(':protocol://:hostname:port/Blacklist_p.html?addBlacklistEntry=&currentBlacklist=:currentBlacklist&newEntry=:newEntry', params).get();
+                        return this.$resource(':protocol://:hostname' + ':' + ':port/Blacklist_p.html?addBlacklistEntry=&currentBlacklist=:currentBlacklist&newEntry=:newEntry', params).get();
 
                       },
 
@@ -99,7 +99,7 @@ angular.module('yacy.services', []).
                         var params = this.params;
                         var xml2json = this.xml2json;
 
-                        return this.$resource(':protocol://:hostname:port/xml/blacklists_p.xml?attrOnly=1',
+                        return this.$resource(':protocol://:hostname' + ':' + ':port/xml/blacklists_p.xml?attrOnly=1',
                                               params,
                                               {get:
                                                {
