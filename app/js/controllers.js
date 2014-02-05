@@ -6,7 +6,7 @@ angular.module('yacy.controllers', []).
     controller('OptionsCtrl', ['$scope', '$parse', 'storage', function($scope, $parse, storage) {
       $scope.defaultOptions = {
         'options.peerAddress': 'localhost',
-        'options.peerPort': 8080,
+        'options.peerPort': 8090,
         'options.enablePeerSsl': false,
         'options.peerUsername': null,
         'options.peerPassword': null,

@@ -20,7 +20,7 @@ describe('controllers', function() {
       scope.init();
 
       expect(storage.get('options.peerAddress')).toEqual('localhost');
-      expect(storage.get('options.peerPort')).toEqual(8080);
+      expect(storage.get('options.peerPort')).toEqual(8090);
       expect(storage.get('options.enableDynamicUrls')).toEqual(false);
     });
 
@@ -32,7 +32,7 @@ describe('controllers', function() {
       scope.reset();
 
       expect(storage.get('options.peerAddress')).toEqual('localhost');
-      expect(storage.get('options.peerPort')).toEqual(8080);
+      expect(storage.get('options.peerPort')).toEqual(8090);
       expect(storage.get('options.enableDynamicUrls')).toEqual(false);
     });
   });

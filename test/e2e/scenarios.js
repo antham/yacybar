@@ -44,9 +44,8 @@ describe('yacy', function() {
       input('options.enableDynamicUrls').check();
 
       element('button[name~=reset_all_settings]').click();
-
       expect(element('input[name~=peer_address]').val()).toEqual('localhost');
-      expect(element('input[name~=peer_port]').val()).toEqual('8080');
+      expect(element('input[name~=peer_port]').val()).toEqual('8090');
       expect(element('input[name~=dynamic_urls]').attr('checked')).toBeFalsy();
     });
   });
