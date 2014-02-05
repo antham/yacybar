@@ -37,4 +37,97 @@ angular.module('yacy.services', []).
         return new URI(args);
       }
     };
+  }).
+  factory('xml2json', function() {
+    return {
+      new: function() {
+        return new X2JS();
+      }
+    };
+  }).
+  factory('api', ['$resource', 'storage', 'xml2json',
+                  function($resource, storage, xml2json) {
+                    var Api = function($resource, storage, xml2json) {
+                      this.$resource = $resource;
+                      this.storage = storage;
+                      this.xml2json = xml2json.new();
 
+                      this.params = {
+                        'protocol': storage.get('options.enablePeerSsl') ? 'https' : 'http',
+                        'hostname': storage.get('options.peerAddress'),
+                        'port': storage.get('options.peerPort') ? ':' + storage.get('options.peerPort') : ''
+                      };
+                    };
+
+                    Api.prototype = {
+                      crawl: function(url, title)
+                      {
+                        if (!url || !title)
+                        {
+                          return null;
+                        }
+
+                        var params = this.params;
+                        params['url'] = url;
+                        params['title'] = title;
+                        params['crawlingDepth'] = storage.get('options.crawlingDepth');
+                        params['localIndexing'] = !storage.get('options.enableRemoteIndexing');
+                        params['xdstopw'] = storage.get('options.enableStaticStopWordsExclusion');
+                        params['storeHTCache'] = storage.get('options.enableProxyCacheStoring');
+                        params['crawlingQ'] = storage.get('options.enableDynamicUrls');
+
+                        return this.$resource(':protocol://:hostname:port/QuickCrawlLink_p.xml?url=:url&title=:title&crawlingDepth=:crawlingDepth&localIndexing=:localIndexing&xdstopw=:xdstopw&storeHTCache=:storeHTCache&crawlingQ=:crawlingQ', params).get();
+                      },
+
+                      blacklist: function(url, name)
+                      {
+                        if (!url || !name)
+                        {
+                          return null;
+                        }
+
+                        var params = this.params;
+                        params['currentBlacklist'] = name;
+                        params['newEntry'] = url;
+
+                        return this.$resource(':protocol://:hostname:port/Blacklist_p.html?addBlacklistEntry=&currentBlacklist=:currentBlacklist&newEntry=:newEntry', params).get();
+
+                      },
+
+                      getBlacklistNames: function()
+                      {
+                        var params = this.params;
+                        var xml2json = this.xml2json;
+
+                        return this.$resource(':protocol://:hostname:port/xml/blacklists_p.xml?attrOnly=1',
+                                              params,
+                                              {get:
+                                               {
+                                                 method: 'GET',
+                                                 transformResponse:
+                                                 function(data, headersGetter) {
+                                                   var response = {blacklists: []};
+
+                                                   try
+                                                   {
+                                                     var jsonData = xml2json.xml_str2json(data);
+                                                     var list = jsonData['blacklists']['list'];
+
+                                                     for (var i = 0; i < list.length; i++)
+                                                     {
+                                                       response.blacklists.push(list[i]['_name']);
+                                                     }
+                                                   }
+                                                   catch (e)
+                                                   {
+                                                   }
+
+                                                   return response;
+                                                 }
+                                               }
+                                              }).get();
+                      }
+                    };
+
+                    return new Api($resource, storage, xml2json);
+                  }]);
