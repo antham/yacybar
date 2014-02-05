@@ -3,49 +3,49 @@
 /* Services */
 
 angular.module('yacy.services', []).
-  factory('chrome', function() {
-    return chrome;
-  }).
-  factory('storage', function() {
-    var Storage = function() {
-    };
+    factory('chrome', function() {
+      return chrome;
+    }).
+    factory('storage', function() {
+      var Storage = function() {
+      };
 
-    Storage.prototype = {
-      set : function(key,value)
-      {
-        localStorage.setItem(key,angular.toJson(value));
-      },
-      get : function(key)
-      {
-        return localStorage.getItem(key) == 'undefined' ? undefined : angular.fromJson(localStorage.getItem(key));
-      },
-      remove : function(key)
-      {
-        localStorage.removeItem(key);
-      },
-      has : function(key)
-      {
-        return localStorage.getItem(key) == null ? false : true;
-      }
-    }
+      Storage.prototype = {
+        set: function(key, value)
+        {
+          localStorage.setItem(key, angular.toJson(value));
+        },
+        get: function(key)
+        {
+          return localStorage.getItem(key) == 'undefined' ? undefined : angular.fromJson(localStorage.getItem(key));
+        },
+        remove: function(key)
+        {
+          localStorage.removeItem(key);
+        },
+        has: function(key)
+        {
+          return localStorage.getItem(key) == null ? false : true;
+        }
+      };
 
-    return new Storage();
-  }).
-  factory('uri', function() {
-    return {
-      new: function(args) {
-        return new URI(args);
-      }
-    };
-  }).
-  factory('xml2json', function() {
-    return {
-      new: function() {
-        return new X2JS();
-      }
-    };
-  }).
-  factory('api', ['$resource', 'storage', 'xml2json',
+      return new Storage();
+    }).
+    factory('uri', function() {
+      return {
+        new: function(args) {
+          return new URI(args);
+        }
+      };
+    }).
+    factory('xml2json', function() {
+      return {
+        new: function() {
+          return new X2JS();
+        }
+      };
+    }).
+    factory('api', ['$resource', 'storage', 'xml2json',
                   function($resource, storage, xml2json) {
                     var Api = function($resource, storage, xml2json) {
                       this.$resource = $resource;
@@ -106,7 +106,7 @@ angular.module('yacy.services', []).
                                                  method: 'GET',
                                                  transformResponse:
                                                  function(data, headersGetter) {
-                                                   var response = {blacklists: []};
+                                                   var response = {};
 
                                                    try
                                                    {
@@ -115,7 +115,7 @@ angular.module('yacy.services', []).
 
                                                      for (var i = 0; i < list.length; i++)
                                                      {
-                                                       response.blacklists.push(list[i]['_name']);
+                                                       response[i] = list[i]['_name'];
                                                      }
                                                    }
                                                    catch (e)

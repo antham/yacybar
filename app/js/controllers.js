@@ -3,94 +3,94 @@
 /* Controllers */
 
 angular.module('yacy.controllers', []).
-    controller('OptionsCtrl', ['$scope', '$parse', 'storage', function ($scope, $parse, storage) {
-        $scope.defaultOptions = {
-            "options.peerAddress": "localhost",
-            "options.peerPort": 8080,
-            "options.enablePeerSsl": false,
-            "options.peerUsername": null,
-            "options.peerPassword": null,
-            "options.enableCrawlerSettings": true,
-            "options.crawlingFilter": ".*",
-            "options.crawlingDepth": 0,
-            "options.enableDynamicUrls": false,
-            "options.enableProxyCacheStoring": false,
-            "options.enableRemoteIndexing": false,
-            "options.enableStaticStopWordsExclusion": false,
-            "options.searchType": "standard",
-            "options.contentType": "text",
-            "options.maxResult": 10,
-            "options.resource": "global",
-            "options.urlMask": ".*",
-            "options.enableSnippets": false,
-            "options.enableSearchPageAsStartPage": false,
-            "options.enableMessageNotification": false,
-            "options.enableCrawlerNotification": false,
-            "options.enableNewsNotification": false
-        },
+    controller('OptionsCtrl', ['$scope', '$parse', 'storage', function($scope, $parse, storage) {
+      $scope.defaultOptions = {
+        'options.peerAddress': 'localhost',
+        'options.peerPort': 8080,
+        'options.enablePeerSsl': false,
+        'options.peerUsername': null,
+        'options.peerPassword': null,
+        'options.enableCrawlerSettings': true,
+        'options.crawlingFilter': '.*',
+        'options.crawlingDepth': 0,
+        'options.enableDynamicUrls': false,
+        'options.enableProxyCacheStoring': false,
+        'options.enableRemoteIndexing': false,
+        'options.enableStaticStopWordsExclusion': false,
+        'options.searchType': 'standard',
+        'options.contentType': 'text',
+        'options.maxResult': 10,
+        'options.resource': 'global',
+        'options.urlMask': '.*',
+        'options.enableSnippets': false,
+        'options.enableSearchPageAsStartPage': false,
+        'options.enableMessageNotification': false,
+        'options.enableCrawlerNotification': false,
+        'options.enableNewsNotification': false
+      };
 
-        $scope.init = function() {
-            for(var key in this.defaultOptions)
-            {
-                if(!storage.has(key))
-                {
-                    storage.set(key,this.defaultOptions[key]);
-                }
+      $scope.init = function() {
+        for (var key in this.defaultOptions)
+        {
+          if (!storage.has(key))
+          {
+            storage.set(key, this.defaultOptions[key]);
+          }
 
-                var value = storage.get(key);
+          var value = storage.get(key);
 
-                $parse(key).assign($scope, value);
+          $parse(key).assign($scope, value);
 
-                (function(key){
-                    $scope.$watch(key, function (value) {
-                        storage.set(key,value);
-                    }, true);
-                }(key));
-            }
-        },
+          (function(key) {
+            $scope.$watch(key, function(value) {
+              storage.set(key, value);
+            }, true);
+          }(key));
+        }
+      };
 
-        $scope.reset = function() {
-            for(var key in this.defaultOptions)
-            {
-                localStorage.removeItem(key);
-            }
+      $scope.reset = function() {
+        for (var key in this.defaultOptions)
+        {
+          localStorage.removeItem(key);
+        }
 
-            this.init();
-        };
+        this.init();
+      };
     }]).
-    controller('BrowserActionCtrl', ['$scope', 'chrome', 'uri', function ($scope, chrome, uri) {
-        $scope.currentUrl = null;
-        $scope.blacklistUrl = null;
-        $scope.crawlUrl = null;
+    controller('BrowserActionCtrl', ['$scope', 'chrome', 'uri', function($scope, chrome, uri) {
+      $scope.currentUrl = null;
+      $scope.blacklistUrl = null;
+      $scope.crawlUrl = null;
 
-        $scope.init = function() {
+      $scope.init = function() {
             chrome.tabs.query(
-                {'active':true,'status':'complete','highlighted':true},
-                function (tabs) {
-                    $scope.currentUrl = tabs[0].url;
-                    $scope.blacklistUrl = $scope.currentUrl;
-                    $scope.crawlUrl = $scope.currentUrl;
+                {'active': true, 'status': 'complete', 'highlighted': true},
+                function(tabs) {
+              $scope.currentUrl = tabs[0].url;
+              $scope.blacklistUrl = $scope.currentUrl;
+              $scope.crawlUrl = $scope.currentUrl;
                 }
             );
-        };
+      };
 
-        $scope.resetCrawl = function () {
+      $scope.resetCrawl = function() {
             $scope.crawlUrl = $scope.currentUrl;
-        };
+      };
 
-        $scope.submitCrawl = function () {
-        };
+      $scope.submitCrawl = function() {
+      };
 
-        $scope.resetBlacklist = function() {
+      $scope.resetBlacklist = function() {
             $scope.blacklistUrl = $scope.currentUrl;
-        };
+      };
 
 
-        $scope.filterDomain = function () {
-            $scope.blacklistUrl = uri.new($scope.currentUrl).hostname()+"/.*";
-        };
+      $scope.filterDomain = function() {
+            $scope.blacklistUrl = uri.new($scope.currentUrl).hostname() + '/.*';
+      };
 
-        $scope.filterSubDomain = function () {
-            $scope.blacklistUrl = ".*"+uri.new($scope.currentUrl).domain()+"/.*";
-        };
+      $scope.filterSubDomain = function() {
+            $scope.blacklistUrl = '.*' + uri.new($scope.currentUrl).domain() + '/.*';
+      };
     }]);
