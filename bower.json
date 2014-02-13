@@ -9,5 +9,8 @@
     "bootstrap-css": "*",
     "x2js": "*",
     "uri.js": "*"
+  },
+  "resolutions": {
+    "angular": "1.2.10"
   }
 }

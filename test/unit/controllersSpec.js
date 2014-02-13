@@ -37,15 +37,16 @@ describe('controllers', function() {
     });
   });
   describe('BrowserActionCtrl', function() {
-    var scope, chrome;
+    var scope, chrome, api, uri, $httpBackend;
 
-    beforeEach(module('yacy.controllers', 'yacy.services'));
+    beforeEach(module('ngResource', 'yacy.controllers', 'yacy.services'));
 
-    beforeEach(inject(function($rootScope, $controller, uri) {
+    beforeEach(inject(function($rootScope, $controller, _uri_, _api_, _$httpBackend_) {
       scope = $rootScope.$new();
       chrome = chromeMock;
+      $httpBackend = _$httpBackend_;
 
-      $controller('BrowserActionCtrl', {$scope: scope, uri: uri, chrome: chrome});
+      $controller('BrowserActionCtrl', {$scope: scope, uri: _uri_, chrome: chrome, api: _api_});
 
       chrome.mock.tabs = [{active: true,
         'favIconUrl': 'http://www.example.com/favicon.ico',
@@ -87,5 +88,45 @@ describe('controllers', function() {
       expect(scope.blacklistUrl).toEqual('http://www.example.com/anyurl.html');
     });
 
+    it('should not crawl if not enough informations are provided', function() {
+      scope.init();
+
+      scope.crawlUrl = null;
+      expect(scope.submitCrawl()).toBeFalsy()
+
+      scope.title = null;
+      expect(scope.submitCrawl()).toBeFalsy()
+    });
+
+    it('should not blacklist if not enough informations are provided', function() {
+      scope.init();
+
+      scope.blacklistUrl = null;
+      expect(scope.submitBlacklist()).toBeFalsy()
+
+      scope.blacklistName = "any name";
+      expect(scope.submitBlacklist()).toBeFalsy()
+    });
+
+    it('should crawl an url', function() {
+      scope.crawlUrl = "http://whatever.com";
+      scope.title = "a title";
+
+      $httpBackend.expectGET('http://localhost:8090/QuickCrawlLink_p.xml?url=http:%2F%2Fwhatever.com&title=a%20title&crawlingDepth=0&localIndexing=true&xdstopw=false&storeHTCache=false&crawlingQ=false').respond('200');
+      expect(scope.submitCrawl()).toBeTruthy();
+
+      $httpBackend.flush();
+    });
+
+    it('should blacklist an url', function() {
+      scope.blacklistUrl = "http://whatever.com";
+      scope.blacklistName = "blacklist_1";
+
+      $httpBackend.expectGET('http://localhost:8090/Blacklist_p.html?addBlacklistEntry=&currentBlacklist=blacklist_1&newEntry=http:%2F%2Fwhatever.com').respond('200');
+
+      expect(scope.submitBlacklist()).toBeTruthy();
+
+      $httpBackend.flush();
+    });
   });
 });

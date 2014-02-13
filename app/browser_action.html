@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html ng-app="yacy">
   <head>
-    <title>{{"yacy_name"|translate}} toolbar</title>
+    <title>{{"yacy_name_toolbar"|translate}}</title>
     <link rel="stylesheet" href="/app/bower_components/bootstrap-css/css/bootstrap.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/app/css/main.css" type="text/css" media="screen" />
-    <script type="text/javascript" src="/app/bower_components/uri.js/src/URI.min.js"></script>
+    <script type="text/javascript" src="/app/bower_components/uri.js/src/URI.js"></script>
+    <script type="text/javascript" src="/app/bower_components/x2js/xml2json.js"></script>
     <script type="text/javascript" src="/app/bower_components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/app/bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="/app/bower_components/angular-resource/angular-resource.min.js"></script>
@@ -19,50 +20,59 @@
   </head>
   <body class="browser-action col-sm-8">
     <div ng-controller="BrowserActionCtrl" class="row container" ng-init="init();">
-      <form name="form" novalidate role="form">
-        <fieldset>
-          <legend>{{"blacklist_page"|translate}}</legend>
-          <div class="row">
-            <div class="input-group">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="submitBlacklist();">{{"submit"|translate}}</button>
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#" ng-click="resetBlacklist();">{{"reset"|translate}}</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#" ng-click="filterDomain();">{{"filter_domain"|translate}}</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#" ng-click="filterSubDomain();">{{"filter_sub_domain"|translate}}</a></li>
-                </ul>
-              </div>
-              <input name="blacklisted_url" type="text" class="input-large form-control" ng-model="blacklistUrl" />
-              </div>
+
+      <h3>{{"blacklist_page"|translate}}</h3>
+
+      <form name="blacklistingForm" novalidate role="form">
+        <div id="blacklist-name-error" class="alert alert-danger" ng-hide="blacklistName">{{"no_blacklist_found"|translate}}</div>
+        <div id="blacklist-name" ng-show="blacklistName">
+          <div class="alert alert-danger" ng-show="blacklistingForm.blacklistUrl.$error.required">{{"blacklist_url_required"}}</div>
+
+          <div class="input-group">
+            <span class="input-group-addon">{{"blacklist_name"|translate}}</span>
+            <select class="form-control" ng-model="blacklistName" ng-options="name for (key,name) in blacklistNames"></select>
+          </div>
+
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="submitBlacklist();">{{"submit"|translate}}</button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#" ng-click="resetBlacklist();">{{"reset"|translate}}</a></li>
+                <li class="divider"></li>
+                <li><a href="#" ng-click="filterDomain();">{{"filter_domain"|translate}}</a></li>
+                <li class="divider"></li>
+                <li><a href="#" ng-click="filterSubDomain();">{{"filter_sub_domain"|translate}}</a></li>
+              </ul>
             </div>
+            <input name="blacklistUrl" type="text" class="form-control" ng-model="blacklistUrl" required />
           </div>
-        </fieldset>
-        <fieldset>
-          <legend>{{"crawl_page"|translate}}</legend>
-          <div class="row">
-            <div class="input-group">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default">{{"submit"|translate}}</button>
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="submitCrawl();"><span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#" ng-click="resetCrawl();">{{"reset"|translate}}</a></li>
-                </ul>
-              </div>
-              <input name="crawled_url" type="text" class="input-large form-control" ng-model="crawlUrl"/>
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-primary dropdown-toggle" ng-click="isCollapsed = !isCollapsed" data-toggle="dropdown" data-target="#crawling_options">{{"options"|translate}}</button>
-              </div>
-            </div>
+
+        </div>
+      </form>
+
+      <h3>{{"crawl_page"|translate}}</h3>
+
+      <form name="crawling-form" novalidate role="form">
+        <div class="alert" ng-show="crawlingStatus" ng-class="{'alert-danger': crawlingStatus.code !== 0, 'alert-success': crawlingStatus.code === 0}">{{crawlingStatus.message|translate}}</div>
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="submitCrawl();">{{"submit"|translate}}</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#" ng-click="resetCrawl();">{{"reset"|translate}}</a></li>
+            </ul>
           </div>
-          <div collapse="!isCollapsed">
-            <hr />
-            <div id="crawling_options" ng-controller="OptionsCtrl" ng-init="init();" ng-include="'/app/partials/quick_crawl_options.html'"></div>
+          <input name="crawlUrl" type="text" class="form-control" ng-model="crawlUrl" required />
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-primary dropdown-toggle" ng-click="isCollapsed = !isCollapsed" data-toggle="dropdown" data-target="#crawling_options">{{"options"|translate}}</button>
           </div>
-        </fieldset>
+        </div>
+        <div collapse="!isCollapsed">
+          <hr />
+          <div id="crawling_options" ng-controller="OptionsCtrl" ng-init="init();" ng-include="'/app/partials/quick_crawl_options.html'"></div>
+        </div>
       </form>
     </div>
   </body>
-</head>
+</html>

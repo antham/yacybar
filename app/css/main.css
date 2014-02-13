@@ -11,7 +11,12 @@ div.title h1
 
 body.browser-action
 {
-    width:350px;
+    width:450px;
     margin: 10px;
     position: relative;
+}
+
+.input-group
+{
+    margin-bottom: 5px;
 }
