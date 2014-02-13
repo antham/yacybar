@@ -60,31 +60,68 @@ describe('controllers', function() {
         'title': 'title page',
         'url': 'http://www.example.com/anyurl.html',
         windowId: 1}];
-
-      scope.init();
     }));
 
-    it('should have current url', function() {
-      expect(scope.blacklistUrl).toEqual('http://www.example.com/anyurl.html');
-      expect(scope.crawlUrl).toEqual('http://www.example.com/anyurl.html');
+    it('should have first item in blacklist list chosen', function() {
+      $httpBackend.whenGET('http://localhost:8090/xml/blacklists_p.xml?attrOnly=1').respond('<?xml version="1.0" ?><blacklists><list crawler="1" dht="1" name="url.default.black" news="1" proxy="1" search="1" shared="1" surftips="1"></list><list crawler="1" dht="1" name="hello_world.black" news="1" proxy="1" search="1" shared="1" surftips="1"></list></blacklists>');
+
+      scope.init();
+
+      $httpBackend.flush();
+
+      expect(scope.blacklistName).toEqual('url.default.black');
     });
 
+    it('should be equal to null if no blacklists are grabbed', function() {
+      $httpBackend.whenGET('http://localhost:8090/xml/blacklists_p.xml?attrOnly=1').respond('');
+
+      scope.init();
+
+      $httpBackend.flush();
+
+      expect(scope.blacklistName).toEqual(null);
+    });
+
+    it('should have current url to init blacklist url', function() {
+      scope.init();
+
+      expect(scope.blacklistUrl).toEqual('http://www.example.com/anyurl.html');
+    });
+
+    it('should have current url to init crawling url', function() {
+      scope.init();
+
+      expect(scope.crawlUrl).toEqual('http://www.example.com/anyurl.html');
+    })
+
     it('should filter domain', function() {
+      scope.init();
+
       scope.filterDomain();
       expect(scope.blacklistUrl).toEqual('www.example.com/.*');
     });
 
     it('should filter subdomain', function() {
+      scope.init();
+
       scope.filterSubDomain();
       expect(scope.blacklistUrl).toEqual('.*example.com/.*');
     });
 
-    it('should reset urls if changed', function() {
+    it('should reset crawl url if changed', function() {
+      scope.init();
+
       scope.crawlUrl = 'http://whatever.com';
-      scope.blacklistUrl = 'http://whatever.com';
       scope.resetCrawl();
-      scope.resetBlacklist();
       expect(scope.crawlUrl).toEqual('http://www.example.com/anyurl.html');
+    })
+
+    it('should reset blacklist url if changed', function() {
+      scope.init();
+
+      scope.blacklistUrl = 'http://whatever.com';
+      scope.resetBlacklist();
+
       expect(scope.blacklistUrl).toEqual('http://www.example.com/anyurl.html');
     });
 
