@@ -110,27 +110,53 @@ describe('service', function() {
     });
 
     describe('crawl url', function() {
-      it('should crawl an url', function() {
+      it('should add an url to crawl', function() {
 
-        $httpBackend.whenGET('http://localhost:8090/QuickCrawlLink_p.xml?url=http:%2F%2Ffree.fr&title=a%20title&crawlingDepth=0&localIndexing=true&xdstopw=false&storeHTCache=false&crawlingQ=false').respond('');
+        $httpBackend.whenGET('http://localhost:8090/QuickCrawlLink_p.xml?url=http:%2F%2Ffree.fr&title=a%20title&crawlingDepth=0&localIndexing=true&xdstopw=false&storeHTCache=false&crawlingQ=false').respond('<?xml version= "1.0" ?><QuickCrawlLink>    <title/>    <url>str.fr</url>    <status code="0">URL successfully added to Crawler Queue        </status></QuickCrawlLink>');
 
         var result = api.crawl('http://free.fr', 'a title');
         $httpBackend.flush();
 
         expect(result.$resolved).toEqual(true);
+        expect(result['code']).toEqual(0);
+        expect(result['message']).toEqual('URL successfully added to Crawler Queue');
       });
 
-      it('should return null if no url, nor title is provided', function() {
+      it('should add an url to crawl and status message with accent has to be parsed correctly', function() {
+        $httpBackend.whenGET('http://localhost:8090/QuickCrawlLink_p.xml?url=http:%2F%2Fexample.com&title=%C3%A9%C3%A8%C3%A4%C3%A0%C3%AA%C3%AB&crawlingDepth=0&localIndexing=true&xdstopw=false&storeHTCache=false&crawlingQ=false').respond('<?xml version= "1.0" ?><QuickCrawlLink> <title>&eacute;&egrave;&auml;&agrave;&ecirc;&euml;    <title/>    <url>http://www.example.com</url>    <status code="0">URL successfully added to Crawler Queue        </status></QuickCrawlLink>');
 
-        var result = api.crawl('', 'a title');
-        expect(result).toEqual(null);
+        var result = api.crawl('http://example.com', 'éèäàêë');
+        $httpBackend.flush();
 
-        var result = api.crawl('anyurl.com/whatever/topic', '');
-        expect(result).toEqual(null);
-
-        var result = api.crawl('', '');
-        expect(result).toEqual(null);
+        expect(result.$resolved).toEqual(true);
+        expect(result['code']).toEqual(0);
+        expect(result['message']).toEqual('URL successfully added to Crawler Queue');
       });
+
+    });
+
+    it('should return null if no url, nor title is provided', function() {
+
+      var result = api.crawl('', 'a title');
+      expect(result).toEqual(null);
+
+      var result = api.crawl('anyurl.com/whatever/topic', '');
+      expect(result).toEqual(null);
+
+      var result = api.crawl('', '');
+      expect(result).toEqual(null);
+    });
+
+    it('should parse error status message', function() {
+
+      $httpBackend.whenGET('http://localhost:8090/QuickCrawlLink_p.xml?url=http:%2F%2Fstrfr&title=a%20title&crawlingDepth=0&localIndexing=true&xdstopw=false&storeHTCache=false&crawlingQ=false').respond('<?xml version= "1.0" ?><QuickCrawlLink>    <title/>    <url>strfr</url>    <status code="3">Unable to add URL to crawler queue: denied_ (the host \'strfr\' is local, but local addresses are not accepted: 192.168.31.254)        </status></QuickCrawlLink>');
+
+      var result = api.crawl('http://strfr', 'a title');
+      $httpBackend.flush();
+
+      expect(result.$resolved).toEqual(true);
+      expect(result['code']).toEqual(3);
+      expect(result['message']).toEqual("Unable to add URL to crawler queue: denied_ (the host 'strfr' is local, but local addresses are not accepted: 192.168.31.254)");
     });
 
     describe('get search url', function() {

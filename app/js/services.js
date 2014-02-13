@@ -93,6 +93,7 @@ angular.module('yacy.services', []).
                         }
 
                         var params = this.params;
+                        var xml2json = this.xml2json;
                         params['url'] = url;
                         params['title'] = title;
                         params['crawlingDepth'] = storage.get('options.crawlingDepth');
@@ -101,7 +102,24 @@ angular.module('yacy.services', []).
                         params['storeHTCache'] = storage.get('options.enableProxyCacheStoring');
                         params['crawlingQ'] = storage.get('options.enableDynamicUrls');
 
-                        return this.$resource(':protocol://:hostname' + ':' + ':port/QuickCrawlLink_p.xml?url=:url&title=:title&crawlingDepth=:crawlingDepth&localIndexing=:localIndexing&xdstopw=:xdstopw&storeHTCache=:storeHTCache&crawlingQ=:crawlingQ', params).get();
+                        return this.$resource(':protocol://:hostname' + ':' + ':port/QuickCrawlLink_p.xml?url=:url&title=:title&crawlingDepth=:crawlingDepth&localIndexing=:localIndexing&xdstopw=:xdstopw&storeHTCache=:storeHTCache&crawlingQ=:crawlingQ', params,
+                                              {
+                                                get:
+                                                {
+                                                  method: 'GET',
+                                                  transformResponse:
+                                                  function(data, headersGetter) {
+                                                    var response = {};
+
+                                                    var extractedMessage = /<status\s*code="(\d*)">((?:.|[\s\S])+?)<\/status>/gm.exec(data);
+
+                                                    response['code'] = !extractedMessage || typeof extractedMessage[1] == undefined ? -1 : parseInt(extractedMessage[1].trim());
+                                                    response['message'] = !extractedMessage || typeof extractedMessage[2] == undefined ? 'Request failed' : extractedMessage[2].trim();
+
+                                                    return response;
+                                                  }
+                                                }
+                                              }).get();
                       },
 
                       blacklist: function(url, name)
