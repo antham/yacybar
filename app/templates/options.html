@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html data-ng-app="yacy">
+  <head>
+    <title>{{"yacy_name"|translate}} options</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap-css/css/bootstrap.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/bower_components/uri.js/src/URI.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/services.js"></script>
+    <script src="/js/controllers.js"></script>
+    <script src="/js/filters.js"></script>
+    <script src="/js/directives.js"></script>
+  </head>
+  <body>
+    <div data-ng-controller="OptionsCtrl" class="container" data-ng-init="init();">
+      <div class="title row">
+        <img src="/img/yacy_logo_big.png" class="col-md-4"><h1 class="col-md-4">{{"yacybar_settings"|translate}}</h1>
+      </div>
+      <form name="form" novalidate class="form-horizontal">
+        <tabset>
+          <tab id="tabs_main" heading="{{'main'|translate}}">
+            <div class="main_summary">{{"main_summary"|translate}}</div>
+            <hr />
+            <div class="control-group">
+              <label for="reset_all_settings" class="control-label">{{"reset_all_settings"|translate}}</label>
+              <div class="controls">
+                <button class="btn btn-primary" name="reset_all_settings" data-ng-click="reset();">{{"ok"|translate}}</button>
+              </div>
+            </div>
+          </tab>
+          <tab id="tabs_peer" heading="{{'peer'|translate}}">
+            <data-ng-include src="'/partials/peer_options.html'" />
+          </tab>
+          <tab id="tabs_quick_crawl" heading="{{'quick_crawl'|translate}}">
+            <data-ng-include src="'/partials/quick_crawl_options.html'" />
+          </tab>
+          <tab id="tabs_search" heading="{{'search'|translate}}">
+            <data-ng-include src="'/partials/search_options.html'" />
+          </tab>
+          <tab id="tabs_notification" heading="{{'notification'|translate}}">
+            <data-ng-include src="'/partials/notification_options.html'" />
+          </tab>
+          <tab id="tabs_about" heading="{{'about'|translate}}">
+            <div>
+              <span class="summary">{{"about_summary"|translate}}</span>
+              <hr />
+              <div class="control-group">
+                <span>{{"homepage"|translate}}</span>
+                <span><a href="http://www.yacy.net">http://www.yacy.net</a></span>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </form>
+    </div>
+  </body>
+</html>

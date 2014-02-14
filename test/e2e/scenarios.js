@@ -5,7 +5,7 @@
 describe('yacy', function() {
   describe('options', function() {
     beforeEach(function() {
-      browser().navigateTo('/app/options.html');
+      browser().navigateTo('/templates/options.html');
     });
 
     it('should update values', function() {

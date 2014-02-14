@@ -5,16 +5,16 @@
     "description": "__MSG_yacy_description__",
     "default_locale": "en",
     "icons": {
-        "16": "/app/img/yacy_logo_small.png",
-        "48": "/app/img/yacy_logo_medium.png",
-        "128": "/app/img/yacy_logo_big.png"
+        "16": "/img/yacy_logo_small.png",
+        "48": "/img/yacy_logo_medium.png",
+        "128": "/img/yacy_logo_big.png"
     },
     "browser_action": {
-        "default_icon": "/app/img/yacy_logo_small.png",
+        "default_icon": "/img/yacy_logo_small.png",
         "default_title": "Yacy",
-        "default_popup": "/app/browser_action.html"
+        "default_popup": "/templates/browser_action.html"
     },
-    "options_page": "/app/options.html",
+    "options_page": "/templates/options.html",
     "permissions": [
         "tabs",
         "storage",
@@ -25,6 +25,6 @@
       "keyword": "yacy"
     },
     "background": {
-        "page": "/app/background.html"
+        "page": "/templates/background.html"
     }
 }
