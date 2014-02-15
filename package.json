@@ -1,6 +1,12 @@
 {
   "private": true,
   "dependencies": {
-    "grunt-crx": "*"
+    "karma": "0.10",
+    "karma-jasmine": "0.2.1",
+    "karma-chrome-launcher": "0.1.2",
+    "karma-ng-scenario": "~0.1",
+    "grunt-karma": "0.6.0",
+    "grunt-crx": "0.3.3",
+    "grunt-exec": "0.4.5"
   }
 }

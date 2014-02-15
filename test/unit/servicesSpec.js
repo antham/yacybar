@@ -81,7 +81,7 @@ describe('service', function() {
         var result = api.getBlacklistNames();
         $httpBackend.flush();
 
-        expect(result['0']).toEqual(null);
+        expect(result['0']).toEqual(undefined);
       });
     });
 

@@ -79,7 +79,7 @@ describe('controllers', function() {
 
       $httpBackend.flush();
 
-      expect(scope.blacklistName).toEqual(null);
+      expect(scope.blacklistName).toEqual(undefined);
     });
 
     it('should have current url to init blacklist url', function() {
