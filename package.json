@@ -7,6 +7,7 @@
     "karma-ng-scenario": "~0.1",
     "grunt-karma": "0.6.0",
     "grunt-crx": "0.3.3",
-    "grunt-exec": "0.4.5"
+    "grunt-exec": "0.4.5",
+    "grunt-contrib-jshint": "0.8.0"
   }
 }

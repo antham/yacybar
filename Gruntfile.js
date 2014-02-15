@@ -1,10 +1,11 @@
-module.exports = function(grunt) {
+'use strict';
+module.exports = function (grunt) {
   grunt.initConfig({
     'crx': {
-      yacybar: {
-        "src": "app/",
-        "dest": "build/yacybar.crx",
-        "privateKey": "cert/key.pem",
+      'yacybar': {
+        'src': 'app/',
+        'dest': 'build/yacybar.crx',
+        'privateKey': 'cert/key.pem'
       }
     },
     'karma': {
@@ -21,7 +22,16 @@ module.exports = function(grunt) {
           'runnerPort': 9999,
           'browsers': ['Chrome']
         }
-      },
+      }
+    },
+    'jshint': {
+      'options': { 'jshintrc': '.jshintrc' },
+      'all': [
+        'Gruntfile.js',
+        'config/*.js',
+        'app/js/*.js',
+        'test/**/*.js'
+      ]
     },
     'exec': {
       'run-server': {
@@ -39,4 +49,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-crx');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 };

@@ -14,3 +14,4 @@ before_script:
 script:
   - grunt karma:unit
   - grunt karma:e2e
+  - grunt jshint

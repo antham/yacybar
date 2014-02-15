@@ -1,3 +1,4 @@
+'use strict';
 module.exports = function(config) {
   config.set({
     basePath: '../',
@@ -12,7 +13,7 @@ module.exports = function(config) {
       outputFile: 'test_out/e2e.xml',
       suite: 'e2e'
     },
-    frameworks: ["ng-scenario","jasmine"],
-    reporters: "dots"
+    frameworks: ['ng-scenario','jasmine'],
+    reporters: 'dots'
   });
 };
