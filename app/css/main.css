@@ -20,3 +20,8 @@ body.browser-action
 {
     margin-bottom: 5px;
 }
+
+.summary
+{
+    padding: 5px;
+}
