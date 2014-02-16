@@ -5,14 +5,14 @@
   <div ng-class="{'error': !(options.crawlingFilter)}" class="control-group">
     <label for="crawling_filter" class="control-label">{{"crawling_filter"|translate}}</label>
     <div class="controls">
-      <input name="crawling_filter" type="text" required ng-model="options.crawlingFilter" />
+      <input id="crawling_filter" type="text" required ng-model="options.crawlingFilter" />
       <span class="help-inline" ng-show="!(options.crawlingFilter)">{{"crawling_filter_error"|translate}}</span>
     </div>
   </div>
   <div class="control-group">
     <label for="crawling_depth" class="control-label">{{"crawling_depth"|translate}}</label>
     <div class="controls">
-      <select name="crawling_depth" ng-model="options.crawlingDepth" ng-options="value for value in [0,1,2,3]">
+      <select id="crawling_depth" ng-model="options.crawlingDepth" ng-options="value for value in [0,1,2,3]">
       </select>
     </div>
   </div>
@@ -22,28 +22,28 @@
   <div class="control-group">
     <div class="controls">
       <label for="dynamic_urls" class="checkbox">
-        <input name="dynamic_urls" type="checkbox" ng-model="options.enableDynamicUrls" /> {{"accept_dynamic_urls"|translate}}
+        <input id="dynamic_urls" type="checkbox" ng-model="options.enableDynamicUrls" /> {{"accept_dynamic_urls"|translate}}
       </label>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
       <label for="proxy_cache_storing" class="checkbox">
-        <input name="proxy_cache_storing" type="checkbox" ng-model="options.enableProxyCacheStoring" /> {{"store_to_proxy_cache"|translate}}
+        <input id="proxy_cache_storing" type="checkbox" ng-model="options.enableProxyCacheStoring" /> {{"store_to_proxy_cache"|translate}}
       </label>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
       <label for="remote_indexing" class="checkbox">
-        <input name="remote_indexing" type="checkbox" ng-model="options.enableRemoteIndexing" /> {{"remote_indexing"|translate}}
+        <input id="remote_indexing" type="checkbox" ng-model="options.enableRemoteIndexing" /> {{"remote_indexing"|translate}}
       </label>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
       <label for="exclude_static_stop_words" class="checkbox">
-        <input name="exclude_static_stop_words" type="checkbox" ng-model="options.enableStaticStopWordsExclusion"/> {{"exclude_static_stop_words"|translate}}
+        <input id="exclude_static_stop_words" type="checkbox" ng-model="options.enableStaticStopWordsExclusion"/> {{"exclude_static_stop_words"|translate}}
       </label>
     </div>
   </div>

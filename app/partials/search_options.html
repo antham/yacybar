@@ -3,7 +3,7 @@
 <div class="control-group">
   <label for="search_type" class="control-label">{{"kind_of_search"|translate}}</label>
   <div class="controls">
-    <select name="search_type" ng-model="options.searchType">
+    <select id="search_type" ng-model="options.searchType">
       <option ng-repeat="value in ['standard','compare_search_engines','rich_client']" ng-selected="options.searchType == value" i18n="{{value|translate}}">{{value|translate}}</option>
     </select>
   </div>
@@ -11,7 +11,7 @@
 <div class="control-group">
   <label for="content_type" class="control-label">{{"content_type"|translate}}</label>
   <div class="controls">
-    <select name="content_type" ng-model="options.contentType">
+    <select id="content_type" ng-model="options.contentType">
       <option ng-repeat="value in ['text','image','audio','video','application']" ng-selected="options.contentType == value" i18n="{{value|translate}}">{{value|translate}}</option>
     </select>
   </div>
@@ -19,14 +19,14 @@
 <div class="control-group">
   <label for="max_result" class="control-label">{{"max_number_of_result"|translate}}</label>
   <div class="controls">
-    <select name="max_result" ng-model="options.maxResult" ng-options="value for value in [10,50,100,1000]">
+    <select id="max_result" ng-model="options.maxResult" ng-options="value for value in [10,50,100,1000]">
     </select>
   </div>
 </div>
 <div class="control-group">
   <label for="resource" class="control-label">{{"resource"|translate}}</label>
   <div class="controls">
-    <select name="resource" ng-model="options.resource">
+    <select id="resource" ng-model="options.resource">
       <option ng-repeat="value in ['global','local']" ng-selected="options.resource == value" i18n="{{value|translate}}">{{value|translate}}</option>
     </select>
   </div>
@@ -34,14 +34,14 @@
 <div ng-class="{'error': !(options.urlMask)}" class="control-group">
   <label for="url_mask" class="control-label">{{"url_mask_error"|translate}}</label>
   <div class="controls">
-    <input name="url_mask" type="text" required ng-model="options.urlMask" />
+    <input id="url_mask" type="text" required ng-model="options.urlMask" />
     <span class="help-inline" ng-show="!(options.urlMask)"></span>
   </div>
 </div>
 <div class="control-group">
   <div class="controls">
     <label for="snippets" class="checkbox">
-      <input name="snippets" type="checkbox" ng-model="options.enableSnippets" /> {{"load_and_verify_snippet"|translate}}
+      <input id="snippets" type="checkbox" ng-model="options.enableSnippets" /> {{"load_and_verify_snippet"|translate}}
     </label>
   </div>
 </div>
