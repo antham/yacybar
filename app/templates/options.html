@@ -20,41 +20,43 @@
   <body>
     <div data-ng-controller="OptionsCtrl" class="container" data-ng-init="init();">
       <div class="title row">
-        <img src="/img/yacy_logo_big.png" class="col-md-4"><h1 class="col-md-4">{{"yacybar_settings"|translate}}</h1>
+        <img src="/img/yacy_logo_big.png" class="pull-left col-md-4"><h1 class="col-md-4">{{"yacybar_settings"|translate}}</h1>
       </div>
-      <form name="form" novalidate class="form-horizontal">
-        <tabset>
-          <tab id="tabs_main" heading="{{'main'|translate}}">
-            <div class="summary">{{"main_summary"|translate}}</div>
-            <hr />
-            <div class="control-group">
-              <label for="reset_all_settings" class="control-label">{{"reset_all_settings"|translate}}</label>
-              <div class="controls">
-                <button class="btn btn-primary" id="reset_all_settings" data-ng-click="reset();">{{"ok"|translate}}</button>
-              </div>
-            </div>
-          </tab>
-          <tab id="tabs_peer" heading="{{'peer'|translate}}">
-            <data-ng-include src="'/partials/peer_options.html'" />
-          </tab>
-          <tab id="tabs_quick_crawl" heading="{{'quick_crawl'|translate}}">
-            <data-ng-include src="'/partials/quick_crawl_options.html'" />
-          </tab>
-          <tab id="tabs_search" heading="{{'search'|translate}}">
-            <data-ng-include src="'/partials/search_options.html'" />
-          </tab>
-          <tab id="tabs_about" heading="{{'about'|translate}}">
-            <div>
-              <div class="summary">{{"about_summary"|translate}}</div>
+      <div class="row">
+        <form name="form" novalidate class="form-horizontal">
+          <tabset>
+            <tab id="tabs_main" heading="{{'main'|translate}}">
+              <div class="summary">{{"main_summary"|translate}}</div>
               <hr />
               <div class="control-group">
-                <span>{{"homepage"|translate}}</span>
-                <span><a href="http://www.yacy.net">http://www.yacy.net</a></span>
+                <label for="reset_all_settings" class="control-label">{{"reset_all_settings"|translate}}</label>
+                <div class="controls">
+                  <button class="btn btn-primary" id="reset_all_settings" data-ng-click="reset();">{{"ok"|translate}}</button>
+                </div>
               </div>
-            </div>
-          </tab>
-        </tabset>
-      </form>
+            </tab>
+            <tab id="tabs_peer" heading="{{'peer'|translate}}">
+              <data-ng-include src="'/partials/peer_options.html'" />
+            </tab>
+            <tab id="tabs_quick_crawl" heading="{{'quick_crawl'|translate}}">
+              <data-ng-include src="'/partials/quick_crawl_options.html'" />
+            </tab>
+            <tab id="tabs_search" heading="{{'search'|translate}}">
+              <data-ng-include src="'/partials/search_options.html'" />
+            </tab>
+            <tab id="tabs_about" heading="{{'about'|translate}}">
+              <div>
+                <div class="summary">{{"about_summary"|translate}}</div>
+                <hr />
+                <div class="control-group">
+                  <span>{{"homepage"|translate}}</span>
+                  <span><a href="http://www.yacy.net">http://www.yacy.net</a></span>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </form>
+      </div>
     </div>
   </body>
 </html>
