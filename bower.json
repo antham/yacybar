@@ -1,16 +1,14 @@
 {
   "name": "YacyBar",
   "dependencies": {
-    "angular-cookies": "*",
-    "angular-route": "*",
-    "angular-resource": "*",
-    "angular-bootstrap": "*",
-    "angular-mocks": "*",
-    "bootstrap-css": "*",
-    "x2js": "*",
-    "uri.js": "*"
-  },
-  "resolutions": {
-    "angular": "1.2.10"
+    "angular": "1.2.13",
+    "angular-cookies": "1.2.13",
+    "angular-route": "1.2.13",
+    "angular-resource": "1.2.13",
+    "angular-bootstrap": "0.10.0",
+    "angular-mocks": "1.2.13",
+    "bootstrap-css": "3.0.0",
+    "x2js": "master",
+    "uri.js": "master"
   }
 }
