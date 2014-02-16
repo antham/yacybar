@@ -50,4 +50,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.registerTask('run-tests', 'Run test suite', ['exec:stop-server', 'exec:run-server', 'karma:unit', 'karma:e2e', 'jshint']);
 };
