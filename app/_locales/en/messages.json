@@ -1,8 +1,173 @@
 {
-    "yacy_name": {
-        "message": "YaCy-Bar"
-    },
-    "yacy_description": {
-        "message": "A toolbar for the P2P Searchengine YaCy"
-    }
+  "yacy_name": {
+    "message": "YaCy-Bar"
+  },
+  "yacy_description": {
+    "message": "A toolbar for the P2P search engine YaCy"
+  },
+  "kind_of_search": {
+    "message": "Kind of search"
+  },
+  "standard": {
+    "message": "standard"
+  },
+  "compare_search_engines": {
+    "message": "compare search engines"
+  },
+  "rich_client": {
+    "message": "rich client"
+  },
+  "content_type": {
+    "message": "Content"
+  },
+  "text": {
+    "message": "text"
+  },
+  "image": {
+    "message": "image"
+  },
+  "audio": {
+    "message": "audio"
+  },
+  "video": {
+    "message": "video"
+  },
+  "application": {
+    "message": "application"
+  },
+  "max_number_of_result": {
+    "message": "Max. number of result"
+  },
+  "resource": {
+    "message": "Resource"
+  },
+  "global": {
+    "message": "global"
+  },
+  "local": {
+    "message": "local"
+  },
+  "url_mask_error": {
+    "message": "URL Mask"
+  },
+  "load_and_verify_snippet": {
+    "message": "Load and verify and snippets"
+  },
+  "peer_summary": {
+    "message": "Settings used to connect to your YaCy peer"
+  },
+  "peer_address": {
+    "message": "Peer address"
+  },
+  "peer_port": {
+    "message": "Peer port"
+  },
+  "peer_username": {
+    "message": "Peer username"
+  },
+  "peer_password": {
+    "message": "Peer password"
+  },
+  "use_ssl_encryption": {
+    "message": "Use ssl encryption"
+  },
+  "search_summary": {
+    "message": "Settings used for searching"
+  },
+  "search": {
+    "message": "Search"
+  },
+  "quick_crawl_summary": {
+    "message": "Settings used for crawling"
+  },
+  "notification_summary": {
+    "message": "Settings used for notifications"
+  },
+  "main_summary": {
+    "message": "Main settings"
+  },
+  "reset_all_settings": {
+    "message": "Reset all settings"
+  },
+  "yacybar_settings": {
+    "message": "YacyBar settings"
+  },
+  "quick_crawl": {
+    "message": "Quick Crawl"
+  },
+  "crawling_filter": {
+    "message": "Crawling filter"
+  },
+  "crawling_depth": {
+    "message": "Crawling depth"
+  },
+  "accept_dynamic_urls": {
+    "message": "Accept dynamic urls"
+  },
+  "store_to_proxy_cache": {
+    "message": "Store to proxy cache"
+  },
+  "remote_indexing": {
+    "message": "Remote indexing"
+  },
+  "exclude_static_stop_words": {
+    "message": "Exclude static stop-words"
+  },
+  "peer": {
+    "message": "Peer"
+  },
+  "notification": {
+    "message": "Notification"
+  },
+  "about": {
+    "message": "About"
+  },
+  "main": {
+    "message": "Main"
+  },
+  "about_summary": {
+    "message": "About YaCY"
+  },
+  "homepage": {
+    "message": "Homepage"
+  },
+  "restrictions": {
+    "message": "Restrictions"
+  },
+  "options": {
+    "message": "Options"
+  },
+  "enable_message_notification": {
+    "message": "Enable message notification"
+  },
+  "enable_crawler_notification": {
+    "message": "Enable crawler notification"
+  },
+  "enable_news_notification": {
+    "message": "Enable news notification"
+  },
+  "blacklist_page": {
+    "message": "Blacklist page"
+  },
+  "crawl_page": {
+    "message": "Crawl page"
+  },
+  "no_blacklist_found": {
+    "message": "No blacklist found"
+  },
+  "submit": {
+    "message": "Submit"
+  },
+  "reset": {
+    "message": "Reset"
+  },
+  "filter_domain": {
+    "message": "Filter domain"
+  },
+  "filter_domain": {
+    "message": "Filter sub domain"
+  },
+  "blacklist_name": {
+    "message": "Blacklist name"
+  }
 }
