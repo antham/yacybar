@@ -18,6 +18,6 @@ before_script:
   - sleep 1 # give server time to start
 
 script:
-  - grunt karma:unit
-  - grunt karma:e2e
+  - grunt karma:unit-continuous
+  - grunt karma:e2e-continuous
   - grunt jshint

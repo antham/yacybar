@@ -16,12 +16,26 @@ module.exports = function (grunt) {
           'browsers': ['Chrome']
         }
       },
+      'unit-continuous': {
+        'options': {
+          'configFile': 'config/karma.conf.js',
+          'runnerPort': 9999,
+          'singleRun': true,
+          'browsers': ['PhantomJS']
+        }
+      },
       'e2e': {
         'options': {
           'configFile': 'config/karma-e2e.conf.js',
           'runnerPort': 9999,
           'browsers': ['Chrome']
         }
+      },
+      'e2e-continuous': {
+        'configFile': 'config/karma-e2e.conf.js',
+        'runnerPort': 9999,
+        'singleRun': true,
+        'browsers': ['PhantomJS']
       }
     },
     'jshint': {
