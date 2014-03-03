@@ -13,29 +13,17 @@ module.exports = function (grunt) {
         'options': {
           'configFile': 'config/karma.conf.js',
           'runnerPort': 9999,
-          'browsers': ['Chrome']
-        }
-      },
-      'unit-continuous': {
-        'options': {
-          'configFile': 'config/karma.conf.js',
-          'runnerPort': 9999,
-          'singleRun': true,
           'browsers': ['PhantomJS']
         }
-      },
+      }
+    },
+    'protractor': {
       'e2e': {
-        'options': {
-          'configFile': 'config/karma-e2e.conf.js',
-          'runnerPort': 9999,
-          'browsers': ['Chrome']
+        'configFile': 'config/protractor.js',
+        'keepAlive': false,
+        'noColor': false,
+        'args': {
         }
-      },
-      'e2e-continuous': {
-        'configFile': 'config/karma-e2e.conf.js',
-        'runnerPort': 9999,
-        'singleRun': true,
-        'browsers': ['PhantomJS']
       }
     },
     'jshint': {
@@ -62,7 +50,8 @@ module.exports = function (grunt) {
   });
   grunt.loadNpmTasks('grunt-crx');
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.registerTask('run-tests', 'Run test suite', ['exec:stop-server', 'exec:run-server', 'karma:unit', 'karma:e2e', 'jshint']);
+  grunt.registerTask('run-tests', 'Run test suite', ['exec:stop-server', 'exec:run-server', 'karma:unit', 'protractor', 'jshint']);
 };
